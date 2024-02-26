@@ -2,7 +2,8 @@ package com.credibanco.testbankinc.controller;
 
 import com.credibanco.testbankinc.dto.GetTransactionResponse;
 import com.credibanco.testbankinc.dto.PurchaseRequest;
-import com.credibanco.testbankinc.dto.PurchaseResponse;
+import com.credibanco.testbankinc.dto.TransactionResponse;
+import com.credibanco.testbankinc.dto.ReverseTransactionRequest;
 import com.credibanco.testbankinc.service.TransactionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class TransactionController {
     }
 
     @PostMapping(path = "/purchase")
-    public ResponseEntity<PurchaseResponse> purchase(@RequestBody PurchaseRequest purchaseRequest ){
+    public ResponseEntity<TransactionResponse> purchase(@RequestBody PurchaseRequest purchaseRequest ){
         return new ResponseEntity<>(transactionService.purchase(purchaseRequest), HttpStatus.OK);
     }
 
@@ -31,7 +32,8 @@ public class TransactionController {
         return new ResponseEntity<>(response,HttpStatus.OK);
     }
 
-
-
-
+    @PostMapping(path = "/annulation")
+    public ResponseEntity<TransactionResponse> reverse(@RequestBody ReverseTransactionRequest reverseTransactionRequest ){
+        return new ResponseEntity<>(transactionService.reverse(reverseTransactionRequest), HttpStatus.OK);
+    }
 }

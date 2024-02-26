@@ -10,6 +10,7 @@ import com.credibanco.testbankinc.util.DateUtil;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Optional;
 import java.util.Random;
@@ -65,7 +66,7 @@ public class CardService {
 
     public String cardEnroll(String cardId) {
         String cardNumber = "";
-        if(cardId.length() <= 16){
+        if(cardId.length() == 16){
             cardNumber = cardId.substring(6,16);
         }else {
             throw  new CardRuntimeException("The card number have not the length valid");
@@ -105,7 +106,7 @@ public class CardService {
             throw new CardRuntimeException("the balance is not numeric format",e);
         }
         String cardNumber = "";
-        if(cardBalanceRequest.getCardId().length() <= 16){
+        if(cardBalanceRequest.getCardId().length() == 16){
             cardNumber = cardBalanceRequest.getCardId().substring(6,16);
         }else {
             throw  new CardRuntimeException("The card Id have not the length valid");
@@ -118,9 +119,10 @@ public class CardService {
             transaction.setCard(card);
             transaction.setType(TransactionTypeEnum.credit);
             transaction.setId(UUID.randomUUID());
-            transaction.setCreationDate(new Date());//TODO Corregir esto ha fecha y hora
+            long millis = System.currentTimeMillis();
+            transaction.setCreationDate(new Timestamp(millis));
             transaction.setValue(balance);
-            if(currentDate.after(card.getExpirationDate())){
+            if(currentDate.compareTo(card.getExpirationDate()) > 0){
                 transaction.setState(TransactionStateEnum.declined);
                 transactionRepository.save(transaction);
                 card.setState(CardSateEnum.expired);

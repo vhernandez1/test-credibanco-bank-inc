@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Date;
 @Data
 @AllArgsConstructor
@@ -18,7 +19,7 @@ public class GetTransactionResponse {
 
     private String state;
 
-    private Date creationDate;
+    private Timestamp creationDate;
 
     private String type;
 

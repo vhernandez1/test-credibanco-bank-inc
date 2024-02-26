@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.UUID;
 
@@ -28,10 +29,10 @@ public class Transaction {
     private TransactionStateEnum state;
 
     @Column(name = "creation_date", nullable = false)
-    private Date creationDate;
+    private Timestamp creationDate;
 
     @Column(name = "update_date")
-    private Date updateDate;
+    private Timestamp updateDate;
 
     @Column(name = "type", nullable = false)
     @Enumerated(EnumType.STRING)
