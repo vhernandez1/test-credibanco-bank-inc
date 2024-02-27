@@ -1,12 +1,12 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://34.28.250.78:5432/postgres
     username: postgres
-    password: postgres
+    password: nexus-credibanco-test
     driver-class-name: org.postgresql.Driver
     hikari:
       schema: Bank_ink_cards
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
     show-sql: true
